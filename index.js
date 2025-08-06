@@ -16,10 +16,12 @@ const app = express();
 
 // ✅ Enable full CORS for any frontend
 app.use(cors({
-  origin: '*', // Allow any domain
+  origin: '*',// ✅ List all frontends you want to allow
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true                 // ✅ If you're sending cookies or auth headers
 }));
+
 
 app.use(express.json());
 
@@ -35,7 +37,8 @@ app.use('/api/cart', cartRoutes);
 app.use('/api/wishlist', wishlistRoutes);
 app.use('/api/order', orderRoutes);
 app.use('/api', userRoutes); 
-app.use('/api/address', addressRoutes);
-
-const PORT = 5000;
-app.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
+app.use('/api/address', addressRoutes);;
+const PORT=5000;
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`✅ Server running on port ${PORT}`);
+});
